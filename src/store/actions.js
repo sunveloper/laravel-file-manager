@@ -129,12 +129,13 @@ export default {
         return POST.createFile(getters.selectedDisk, selectedDirectory, fileName)
             .then((response) => {
                 // update file list
-                dispatch('updateContent', {
+                /* dispatch('updateContent', {
                     response,
                     oldDir: selectedDirectory,
                     commitName: 'addNewFile',
                     type: 'file',
-                });
+                }); */
+                dispatch('refreshManagers');
                 return response;
             });
     },
@@ -158,12 +159,13 @@ export default {
     updateFile({ getters, dispatch }, formData) {
         return POST.updateFile(formData).then((response) => {
             // update file list
-            dispatch('updateContent', {
+            /* dispatch('updateContent', {
                 response,
                 oldDir: getters.selectedDirectory,
                 commitName: 'updateFile',
                 type: 'file',
-            });
+            }); */
+            dispatch('refreshManagers');
             return response;
         });
     },
