@@ -135,7 +135,7 @@ export default {
                     commitName: 'addNewFile',
                     type: 'file',
                 }); */
-                dispatch('refreshManagers');
+                dispatch('refreshAll');
                 return response;
             });
     },
@@ -165,7 +165,7 @@ export default {
                 commitName: 'updateFile',
                 type: 'file',
             }); */
-            dispatch('refreshManagers');
+            dispatch('refreshAll');
             return response;
         });
     },
