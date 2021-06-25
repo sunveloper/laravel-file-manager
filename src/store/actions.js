@@ -185,12 +185,12 @@ export default {
             name,
         }).then((response) => {
             // update file list
-            dispatch('updateContent', {
+            /* dispatch('updateContent', {
                 response,
                 oldDir: selectedDirectory,
                 commitName: 'addNewDirectory',
                 type: 'directory',
-            });
+            }); */
             dispatch('refreshAll');
             return response;
         });
