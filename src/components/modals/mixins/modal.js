@@ -27,6 +27,7 @@ export default {
         modalName: null,
         show: false,
       });
+      document.querySelector('body').classList.remove('modal-open');
     },
 
   },

@@ -177,9 +177,11 @@ export default {
      * @returns {*|PromiseLike<T | never>|Promise<T | never>}
      */
     createDirectory({ getters, dispatch }, name) {
-        console.log('createDirectory');
         // directory for new folder
         const selectedDirectory = getters.selectedDirectory;
+
+        // console.log(name)
+        
         // create new directory, server side
         return POST.createDirectory({
             disk: getters.selectedDisk,

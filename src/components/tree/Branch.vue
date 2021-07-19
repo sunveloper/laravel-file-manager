@@ -1,6 +1,6 @@
 <template>
     <ul class="list-unstyled fm-tree-branch">
-        <li v-for="(directory, index) in subDirectories" v-bind:key="index">
+        <li v-for="(directory, index) in subDirectories" v-bind:key="index" v-bind:class="[arrowState(index) ? 'is-expand' : '']">
             <p class="unselectable"
                v-bind:class="{'selected': isDirectorySelected(directory.path)}"
                v-on:click="selectDirectory(directory.path)">
@@ -13,9 +13,13 @@
                    v-bind:class="[arrowState(index)
                     ? 'fa-minus-square'
                     : 'fa-plus-square'
-                   ]"/>
-                <i class="fas fa-minus fa-xs" v-else/>
-                {{ directory.basename }}
+                   ]" />
+                <i class="fas fa-minus op-0" v-else />
+                <i class="tx-16 px-1 fas" v-bind:class="[arrowState(index)
+                    ? 'fa-folder-open'
+                    : 'fa-folder'
+                   , {'tx-primary': isDirectorySelected(directory.path)}]"></i>
+                <span class="tx-medium" v-bind:class="{'tx-primary': isDirectorySelected(directory.path)}">{{ directory.basename }}</span> 
             </p>
 
             <transition name="fade-tree">
@@ -86,44 +90,11 @@ export default {
       if (!this.isDirectorySelected(path)) {
         this.$store.dispatch('fm/left/selectDirectory', { path, history: true });
       }
+
+      this.$store.state.fm.left.selected.directories = []
+			this.$store.state.fm.left.selected.files = []
+      this.$store.state.fm.left.checkAll = false
     },
   },
 };
 </script>
-
-<style lang="scss">
-    .fm-tree-branch {
-        display: table;
-        width: 100%;
-        padding-left: 1.4rem;
-
-        li > p{
-            margin-bottom: 0.1rem;
-            padding: 0.4rem 0.4rem;
-            white-space: nowrap;
-            cursor: pointer;
-
-            &:hover,
-            &.selected {
-                background-color: #f8f9fa;
-            }
-        }
-
-        .fas.fa-minus{
-            padding-left: 0.1rem;
-            padding-right: 0.6rem;
-        }
-
-        .far{
-            padding-right: 0.5rem;
-        }
-    }
-
-    .fade-tree-enter-active, .fade-tree-leave-active {
-        transition: all .3s ease;
-    }
-    .fade-tree-enter, .fade-tree-leave-to {
-        transform: translateX(20px);
-        opacity: 0;
-    }
-</style>

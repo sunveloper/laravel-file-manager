@@ -8,6 +8,9 @@ import fm from './store';
 // App
 import App from './FileManager.vue';
 
+import vClickOutside from 'v-click-outside';
+Vue.use(vClickOutside);
+
 Vue.use(Vuex);
 
 // create new store

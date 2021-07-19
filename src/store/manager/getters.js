@@ -21,6 +21,8 @@ export default {
    * @returns {*}
    */
   directories(state, getters, rootState) {
+    // console.log(rootState ,getters, state)
+
     if (rootState.fm.settings.hiddenFiles) {
       return state.directories;
     }

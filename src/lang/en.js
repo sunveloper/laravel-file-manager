@@ -64,6 +64,9 @@ const en = {
       name: 'Name',
       size: 'Size',
       type: 'Type',
+      info: 'Info',
+      created: 'Created',
+      modified: 'Modified',
     },
   },
   modal: {
@@ -85,7 +88,8 @@ const en = {
     newFolder: {
       fieldName: 'Folder name',
       fieldFeedback: 'Folder exists!',
-      title: 'Create new folder',
+      title: 'New Folder',
+      submit: 'Create',
     },
     preview: {
       title: 'Preview',
@@ -99,6 +103,9 @@ const en = {
       title: 'Properties',
       type: 'Type',
       url: 'URL',
+      created: 'Created',
+      modified: 'Modified',
+      folder: 'Folder',
       access: 'Access',
       access_0: 'Access denied',
       access_1: 'Only Read',
@@ -106,10 +113,11 @@ const en = {
     },
     rename: {
       directoryExist: 'Directory exists',
-      fieldName: 'Enter new name',
+      fieldName: 'File name',
       fieldFeedback: 'Invalid name',
       fileExist: 'File exists',
       title: 'Rename',
+      submit: 'Rename',
     },
     status: {
       noErrors: 'No errors!',
@@ -117,12 +125,15 @@ const en = {
     },
     upload: {
       ifExist: 'If file exist:',
-      noSelected: 'No files selected!',
-      overwrite: 'Overwrite!',
+      noSelected: 'No files selected',
+      overwrite: 'Overwrite',
       selected: 'Selected:',
       size: 'Size:',
       skip: 'Skip',
       title: 'Upload files',
+      submit: 'Upload',
+      uploadSelect: 'Select files',
+      fileExist: 'File name exists'
     },
     editor: {
       title: 'Editor',
@@ -153,6 +164,11 @@ const en = {
       reset: 'Reset',
       save: 'Save',
     },
+    getLink: {
+      title: 'Copy Link',
+      submit: 'Copy Link',
+      label: 'Link:',
+    }
   },
   notifications: {
     cutToClipboard: 'Cut to clipboard!',

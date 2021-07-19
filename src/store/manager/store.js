@@ -38,6 +38,12 @@ export default {
 
       // view type - table or grid - (default - table)
       viewType: 'table',
+
+      // search
+      search: '',
+
+      // checkAll
+      checkAll: false,
     };
   },
   mutations,

@@ -1,10 +1,10 @@
 <template>
-    <div class="fm-content d-flex flex-column">
-        <disk-list v-bind:manager="manager"/>
-        <breadcrumb v-bind:manager="manager"/>
+    <div class="fm-content">
+        <!-- <disk-list v-bind:manager="manager"/> -->
+        <!-- <breadcrumb v-bind:manager="manager" /> -->
         <div class="fm-content-body">
-            <table-view v-if="viewType === 'table'" v-bind:manager="manager"/>
-            <grid-view v-else v-bind:manager="manager"/>
+            <table-view v-if="viewType === 'table'" v-bind:manager="manager" v-bind:search="search" v-bind:checkAll="checkAll" />
+            <grid-view v-else v-bind:manager="manager" v-bind:search="search" v-bind:checkAll="checkAll" />
         </div>
     </div>
 </template>
@@ -26,6 +26,8 @@ export default {
   },
   props: {
     manager: { type: String, required: true },
+    search: { type: String },
+    checkAll: { type: Boolean},
   },
   computed: {
     /**
@@ -35,17 +37,9 @@ export default {
     viewType() {
       return this.$store.state.fm[this.manager].viewType;
     },
+    viewType() {
+      return this.$store.state.fm[this.manager].viewType;
+    },
   },
 };
 </script>
-
-<style lang="scss">
-    .fm-content {
-        height: 100%;
-        padding-left: 1rem;
-
-        .fm-content-body {
-            overflow: auto;
-        }
-    }
-</style>

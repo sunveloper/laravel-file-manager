@@ -147,6 +147,14 @@ export default {
     state.viewType = type;
   },
 
+  setSearch(state, text) {
+    state.search = text;
+  },
+
+  setCheckAll(state, checkAll_status) {
+    state.checkAll = checkAll_status;
+  },
+
   /**
    * Set sort settings - field name
    * @param state

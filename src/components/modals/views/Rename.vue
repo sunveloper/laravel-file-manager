@@ -1,14 +1,14 @@
 <template>
     <div class="modal-content fm-modal-rename">
-        <div class="modal-header">
-            <h5 class="modal-title">{{ lang.modal.rename.title }}</h5>
-            <button type="button" class="close" aria-label="Close" v-on:click="hideModal">
+        <div class="modal-header border-bottom-0 pb-0">
+            <h5 class="modal-title main-content-label">{{ lang.modal.rename.title }}</h5>
+            <!-- <button type="button" class="close" aria-label="Close" v-on:click="hideModal">
                 <span aria-hidden="true">&times;</span>
-            </button>
+            </button> -->
         </div>
         <div class="modal-body">
-            <div class="form-group">
-                <label for="fm-input-rename">{{ lang.modal.rename.fieldName }}</label>
+            <div class="form-group mb-0">
+                <label for="fm-input-rename" class="form-label tx-gray-600 mb-2 tx-medium">{{ lang.modal.rename.fieldName }}</label>
                 <input type="text" class="form-control" id="fm-input-rename"
                        v-focus
                        v-bind:class="{'is-invalid': checkName}"
@@ -21,12 +21,12 @@
                 </div>
             </div>
         </div>
-        <div class="modal-footer">
-            <button class="btn btn-info"
+        <div class="modal-footer justify-content-between">
+            <button class="btn btn-outline-light flex-1 mr-1" v-on:click="hideModal">{{ lang.btn.cancel }}</button>
+            <button class="btn btn-primary flex-1 ml-1"
                     v-bind:disabled="submitDisable"
-                    v-on:click="rename">{{ lang.btn.submit }}
+                    v-on:click="rename">{{ lang.modal.rename.submit }}
             </button>
-            <button class="btn btn-light" v-on:click="hideModal">{{ lang.btn.cancel }}</button>
         </div>
     </div>
 </template>

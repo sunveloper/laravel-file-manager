@@ -1,7 +1,7 @@
 <template>
     <transition name="fm-modal">
         <div class="fm-modal" ref="fmModal" v-on:click="hideModal">
-            <div class="modal-dialog"
+            <div class="modal-dialog modal-dialog-centered"
                  role="document"
                  v-bind:class="modalSize"
                  v-on:click.stop>
@@ -27,6 +27,7 @@ import VideoPlayer from './views/VideoPlayer.vue';
 import Zip from './views/Zip.vue';
 import Unzip from './views/Unzip.vue';
 import About from './views/About.vue';
+import GetLink from './views/GetLink.vue';
 
 export default {
   name: 'Modal',
@@ -46,6 +47,7 @@ export default {
     Zip,
     Unzip,
     About,
+    GetLink,
   },
   mounted() {
     // set height
@@ -66,9 +68,10 @@ export default {
      */
     modalSize() {
       return {
-        'modal-xl': this.modalName === 'Preview' || this.modalName === 'TextEdit',
+        'modal-xl': this.modalName === 'Preview' || this.modalName === 'TextEdit' || this.modalName === 'Properties',
         'modal-lg': this.modalName === 'VideoPlayer',
         'modal-sm': false,
+        'modal-dialog-scrollable fix-forProperties': this.modalName === 'Properties',
       };
     },
   },
@@ -83,31 +86,3 @@ export default {
 };
 </script>
 
-<style lang="scss">
-
-    .fm-modal {
-        position: absolute;
-        z-index: 9998;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, .35);
-        display: block;
-        transition: opacity .4s ease;
-        overflow: auto;
-
-        .modal-xl {
-            max-width: 96%;
-        }
-    }
-
-    .fm-modal-enter-active, .fm-modal-leave-active {
-        transition: opacity .5s;
-    }
-    .fm-modal-enter, .fm-modal-leave-to {
-        opacity: 0;
-    }
-</style>

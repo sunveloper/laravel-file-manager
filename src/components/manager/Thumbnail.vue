@@ -1,11 +1,11 @@
 <template>
-    <figure class="fm-thumbnail">
+    <figure class="fm-thumbnail m-0">
         <transition name="fade" mode="out-in">
-            <i v-if="!src" class="far fa-file-image fa-5x pb-2"/>
+            <i v-if="!src" class="fas fa-image fm-grid-item-preview_wrap"/>
             <img v-else
                  v-bind:src="src"
                  v-bind:alt="file.filename"
-                 class="img-thumbnail">
+                 class="fm-grid-item-preview_wrap">
         </transition>
     </figure>
 </template>
@@ -88,23 +88,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss">
-    .fm-thumbnail {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        .img-thumbnail {
-            width: 88px;
-            height: 88px;
-        }
-
-        .fade-enter-active, .fade-leave-active {
-            transition: opacity .3s;
-        }
-        .fade-enter, .fade-leave-to {
-            opacity: 0;
-        }
-    }
-</style>

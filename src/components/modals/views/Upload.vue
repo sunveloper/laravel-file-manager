@@ -1,78 +1,80 @@
 <template>
     <div class="modal-content fm-modal-upload">
-        <div class="modal-header">
-            <h5 class="modal-title">{{ lang.modal.upload.title }}</h5>
-            <button type="button" class="close" aria-label="Close" v-on:click="hideModal">
+        <div class="modal-header border-bottom-0 pb-0">
+            <h5 class="modal-title main-content-label">{{ lang.modal.upload.title }}</h5>
+            <!-- <button type="button" class="close" aria-label="Close" v-on:click="hideModal">
                 <span aria-hidden="true">&times;</span>
-            </button>
+            </button> -->
         </div>
         <div class="modal-body">
-            <div class="fm-btn-wrapper" v-show="!progressBar">
-                <button type="button" class="btn btn-secondary btn-block">
+            <div class="fm-btn-wrapper mb-3" v-show="!progressBar">
+                <button type="button" class="btn btn-secondary btn-block tx-uppercase">
                     {{ lang.btn.uploadSelect }}
                 </button>
                 <input type="file" multiple name="myfile" v-on:change="selectFiles($event)">
             </div>
             <div class="fm-upload-list" v-if="countFiles">
-                <div class="d-flex justify-content-between"
-                     v-for="(item, index) in newFiles"
-                     v-bind:key="index">
-                    <div class="w-75 text-truncate">
-                        <i class="far" v-bind:class="mimeToIcon(item.type)"/>
-                        {{ item.name }}
-                    </div>
-                    <div class="text-right">
-                        {{ bytesToHuman(item.size) }}
-                    </div>
-                </div>
-                <hr>
-                <div class="d-flex justify-content-between">
-                    <div>
-                        <strong>{{ lang.modal.upload.selected }}</strong>
-                        {{ newFiles.length }}
-                    </div>
-                    <div class="text-right">
-                        <strong>{{ lang.modal.upload.size }}</strong>
-                        {{ allFilesSize }}
-                    </div>
-                </div>
-                <hr>
-                <div class="d-flex justify-content-between">
-                    <div>
-                        <strong>{{ lang.modal.upload.ifExist }}</strong>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input"
-                               id="uploadRadio1"
-                               type="radio"
-                               name="uploadOptions"
-                               value="0"
-                               checked
-                               v-model="overwrite">
-                        <label class="form-check-label" for="uploadRadio1">
-                            {{ lang.modal.upload.skip }}
-                        </label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input"
-                               id="uploadRadio2"
-                               type="radio"
-                               name="uploadOptions"
-                               value="1"
-                               checked
-                               v-model="overwrite">
-                        <label class="form-check-label" for="uploadRadio2">
-                            {{ lang.modal.upload.overwrite }}
-                        </label>
-                    </div>
-                </div>
-                <hr>
+              <!-- file upload list -->
+              <div class="d-flex justify-content-between align-items-center my-1"
+                    v-for="(item, index) in newFiles"
+                    v-bind:key="index">
+                  <div class="w-75 text-truncate">
+                      <i class="fas" v-bind:class="mimeToIcon(item.type)"/>
+                      {{ item.name }}
+                      <span v-if="item.check" class="tx-danger">({{ lang.modal.upload.fileExist }})</span>
+                  </div>
+                  <div class="text-right">
+                      {{ bytesToHuman(item.size) }}
+                  </div>
+              </div>
+              <!-- summary file -->
+              <div class="d-flex justify-content-between align-items-center my-3">
+                  <div>
+                      <span class="tx-medium pr-1">{{ lang.modal.upload.selected }}</span>
+                      {{ newFiles.length }}
+                  </div>
+                  <div class="text-right">
+                      <span class="tx-medium pr-1">{{ lang.modal.upload.size }}</span>
+                      {{ allFilesSize }}
+                  </div>
+              </div>
+              <!-- event check file -->
+              <!-- <div class="d-flex justify-content-between align-items-center my-3">
+                  <div>
+                      <span class="tx-medium pr-1">{{ lang.modal.upload.ifExist }}</span>
+                  </div>
+                  <label class="form-check rdiobox">
+                      <input class="form-check-input"
+                              id="uploadRadio1"
+                              type="radio"
+                              name="uploadOptions"
+                              value="0"
+                              checked
+                              v-model="overwrite">
+                      <span class="form-check-label rdiobox-mark pl-1" for="uploadRadio1">
+                          {{ lang.modal.upload.skip }}
+                      </span>
+                  </label>
+                  <label class="form-check rdiobox">
+                      <input class="form-check-input"
+                              id="uploadRadio2"
+                              type="radio"
+                              name="uploadOptions"
+                              value="1"
+                              checked
+                              v-model="overwrite">
+                      <span class="form-check-label rdiobox-mark pl-1" for="uploadRadio2">
+                          {{ lang.modal.upload.overwrite }}
+                      </span>
+                  </label>
+              </div> -->
+               
             </div>
-            <div v-else><p>{{ lang.modal.upload.noSelected }}</p></div>
+            <div v-else><p class="form-label m-0">{{ lang.modal.upload.noSelected }}</p></div>
             <div class="fm-upload-info">
                 <!-- Progress Bar -->
                 <div class="progress" v-show="countFiles">
-                    <div class="progress-bar progress-bar-striped bg-info" role="progressbar"
+                    <div class="progress-bar progress-bar-striped bg-primary" role="progressbar"
                          v-bind:aria-valuenow="progressBar"
                          aria-valuemin="0"
                          aria-valuemax="100"
@@ -83,12 +85,11 @@
             </div>
         </div>
         <div class="modal-footer">
-            <button class="btn"
-                    v-bind:class="[countFiles ? 'btn-info' : 'btn-light']"
-                    v-bind:disabled="!countFiles"
-                    v-on:click="uploadFiles">{{ lang.btn.submit }}
+            <button class="btn btn-outline-light flex-1 mr-1" v-on:click="hideModal()">{{ lang.btn.cancel }}</button>
+            <button class="btn btn-primary flex-1 ml-1"
+                    v-bind:disabled="!countFiles || disabledFileExist"
+                    v-on:click="uploadFiles">{{ lang.modal.upload.submit }}
             </button>
-            <button class="btn btn-light" v-on:click="hideModal()">{{ lang.btn.cancel }}</button>
         </div>
     </div>
 </template>
@@ -108,7 +109,11 @@ export default {
 
       // overwrite if exists
       overwrite: 0,
+      fileExist: false,
+      // x: null,
     };
+  },
+  mounted() {
   },
   computed: {
 
@@ -128,6 +133,14 @@ export default {
       return this.newFiles.length;
     },
 
+    disabledFileExist() {
+      for (let i = 0; i < this.newFiles.length; i += 1) {
+        if(this.fileExist = this.$store.getters[`fm/${this.activeManager}/fileExist`](this.newFiles[i].name) == true) {
+          return true;
+        }
+      }
+    },
+
     /**
      * Calculate the size of all files
      * @returns {*|string}
@@ -140,8 +153,7 @@ export default {
       }
 
       return this.bytesToHuman(size);
-    },
-
+    }
   },
   methods: {
     /**
@@ -156,6 +168,15 @@ export default {
       } else {
         // we have file or files
         this.newFiles = event.target.files;
+      }
+
+      this.checkFileExist()
+      // console.log(this.newFiles)
+    },
+
+    checkFileExist() {
+      for (let i = 0; i < this.newFiles.length; i += 1) {
+        this.fileExist = this.$store.getters[`fm/${this.activeManager}/fileExist`](this.newFiles[i].name) ? this.newFiles[i].check = true : this.newFiles[i].check = false
       }
     },
 
@@ -181,36 +202,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss">
-    .fm-modal-upload {
-
-        .fm-btn-wrapper {
-            position: relative;
-            overflow: hidden;
-            padding-bottom: 6px;
-            margin-bottom: 0.6rem;
-        }
-
-        .fm-btn-wrapper input[type=file] {
-            font-size: 100px;
-            position: absolute;
-            left: 0;
-            top: 0;
-            opacity: 0;
-            cursor: pointer;
-        }
-
-        .fm-upload-list .far {
-            padding-right: 0.5rem;
-        }
-
-        .fm-upload-list .form-check-inline {
-            margin-right: 0;
-        }
-
-        .fm-upload-info > .progress {
-            margin-bottom: 1rem;
-        }
-    }
-</style>

@@ -24,11 +24,12 @@ export default {
      */
     timestampToDate(timestamp) {
       // if date not defined
-      if (timestamp === undefined) return '-';
+      if (timestamp === undefined) return '';
 
       const date = new Date(timestamp * 1000);
 
-      return date.toLocaleString(this.$store.state.fm.settings.lang);
+      // return date.toLocaleString(this.$store.state.fm.settings.lang);
+      return date;
     },
 
     /**
@@ -41,13 +42,13 @@ export default {
       const mimeTypes = {
 
         // image
-        'image/gif': 'fa-file-image',
-        'image/png': 'fa-file-image',
-        'image/jpeg': 'fa-file-image',
-        'image/bmp': 'fa-file-image',
-        'image/webp': 'fa-file-image',
-        'image/tiff': 'fa-file-image',
-        'image/svg+xml': 'fa-file-image',
+        'image/gif': 'fa-image',
+        'image/png': 'fa-image',
+        'image/jpeg': 'fa-image',
+        'image/bmp': 'fa-image',
+        'image/webp': 'fa-image',
+        'image/tiff': 'fa-image',
+        'image/svg+xml': 'fa-image',
 
         // text
         'text/plain': 'fa-file-alt',
@@ -125,17 +126,17 @@ export default {
       const extensionTypes = {
 
         // images
-        gif: 'fa-file-image',
-        png: 'fa-file-image',
-        jpeg: 'fa-file-image',
-        jpg: 'fa-file-image',
-        bmp: 'fa-file-image',
-        psd: 'fa-file-image',
-        svg: 'fa-file-image',
-        ico: 'fa-file-image',
-        ai: 'fa-file-image',
-        tif: 'fa-file-image',
-        tiff: 'fa-file-image',
+        gif: 'fa-image',
+        png: 'fa-image',
+        jpeg: 'fa-image',
+        jpg: 'fa-image',
+        bmp: 'fa-image',
+        psd: 'fa-image',
+        svg: 'fa-image',
+        ico: 'fa-image',
+        ai: 'fa-image',
+        tif: 'fa-image',
+        tiff: 'fa-image',
 
         // text
         txt: 'fa-file-alt',
@@ -190,22 +191,22 @@ export default {
         'tar.gz': 'fa-file-archive',
 
         // application
-        pdf: 'fa-file-pdf',
+        pdf: 'fa-file-alt',
 
-        rtf: 'fa-file-word',
-        doc: 'fa-file-word',
-        docx: 'fa-file-word',
-        odt: 'fa-file-word',
+        rtf: 'fa-file-alt',
+        doc: 'fa-file-alt',
+        docx: 'fa-file-alt',
+        odt: 'fa-file-alt',
 
-        xlr: 'fa-file-excel',
-        xls: 'fa-file-excel',
-        xlsx: 'fa-file-excel',
+        xlr: 'fa-file-alt',
+        xls: 'fa-file-alt',
+        xlsx: 'fa-file-alt',
 
-        ppt: 'fa-file-powerpoint',
-        pptx: 'fa-file-powerpoint',
-        pptm: 'fa-file-powerpoint',
-        xps: 'fa-file-powerpoint',
-        potx: 'fa-file-powerpoint',
+        ppt: 'fa-file-alt',
+        pptx: 'fa-file-alt',
+        pptm: 'fa-file-alt',
+        xps: 'fa-file-alt',
+        potx: 'fa-file-alt',
       };
 
       if (extension && extensionTypes[extension.toLowerCase()] !== undefined) {
@@ -213,7 +214,7 @@ export default {
       }
 
       // blank file
-      return 'fa-file';
+      return 'fa-file-alt';
     },
   },
 };

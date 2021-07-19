@@ -57,6 +57,10 @@ export default {
     isRootPath() {
       return this.$store.state.fm[this.manager].selectedDirectory === null;
     },
+
+    setSearch() {
+      return this.$store.state.fm[this.manager].search;
+    },
   },
   methods: {
     /**
@@ -65,6 +69,10 @@ export default {
      */
     selectDirectory(path) {
       this.$store.dispatch(`fm/${this.manager}/selectDirectory`, { path, history: true });
+      
+      this.$store.state.fm[this.activeManager].selected.directories = []
+			this.$store.state.fm[this.activeManager].selected.files = []
+      this.$store.state.fm.left.checkAll = false
     },
 
     /**
@@ -97,24 +105,53 @@ export default {
      * @param event
      */
     selectItem(type, path, event) {
+      // console.log('event selectItem -->', type, path, event)
+      
       // search in selected array
       const alreadySelected = this.selected[type].includes(path);
+      // const getSelectedCount = this.$store.getters[`fm/${this.activeManager}/selectedCount`] + 1;
+      // const getDirectoriesCount = this.$store.getters[`fm/${this.activeManager}/directoriesCount`];
+      // const getFilesCount = this.$store.getters[`fm/${this.activeManager}/filesCount`];
+      // const sumSelectedCount = getDirectoriesCount + getFilesCount
+      // const getSelectAllStatus = this.$store.state.fm[this.activeManager].checkAll;
 
-      // if pressed Ctrl -> multi select
-      if (event.ctrlKey || event.metaKey) {
+      // console.log('get => ',getSelectedCount)
+      // console.log('sum => ',sumSelectedCount)
+
+      // if pressed *** -> multi select
+      if (event.which) {
         if (!alreadySelected) {
           // add new selected item
           this.$store.commit(`fm/${this.manager}/setSelected`, { type, path });
-        } else {
+          // console.log('no already')
+        } 
+        // else if (alreadySelected) {
+        //   // this.$store.state.fm[this.activeManager].selected.directories.splice(this.$store.state.fm[this.activeManager].selected.directories.indexOf(type), 1);
+        //   // this.$store.commit(`fm/${this.manager}/removeSelected`, { type, path });
+
+        //   console.log(type, path)
+        //   console.log('already')
+        // }
+         else {
           // remove selected item
           this.$store.commit(`fm/${this.manager}/removeSelected`, { type, path });
+          // console.log('remove')
         }
       }
 
+      // if(getSelectedCount == sumSelectedCount) {
+      //   this.$store.commit(`fm/${this.activeManager}/setCheckAll`, true);
+      // } else {
+      //   this.$store.commit(`fm/${this.activeManager}/setCheckAll`, false);
+      // }
+
+      // console.log('working')
+
       // single select
-      if (!event.ctrlKey && !alreadySelected && !event.metaKey) {
-        this.$store.commit(`fm/${this.manager}/changeSelected`, { type, path });
-      }
+      // if (!event.which && !alreadySelected) {
+      //   this.$store.commit(`fm/${this.manager}/changeSelected`, { type, path });
+      // }
+      
     },
 
     /**

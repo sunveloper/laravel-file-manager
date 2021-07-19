@@ -103,7 +103,7 @@ export default {
      * @returns {boolean}
      */
     zipRule() {
-      return this.selectedDiskDriver === 'local';
+      return this.selectedDiskDriver === 'local' || this.firstItemType === 'dir';
     },
 
     /**

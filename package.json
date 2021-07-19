@@ -1,30 +1,29 @@
 {
-  "_from": "laravel-file-manager",
+  "_from": "git+https://github.com/sunveloper/laravel-file-manager.git",
   "_id": "laravel-file-manager@2.5.4",
   "_inBundle": false,
-  "_integrity": "sha512-d+SuPvZ1KqYvxJWvXCMjV3InZebk2ixzCfX3dIBGhT4NAs+fZYmFnNPH+Is3cWuRb7TZLv7COeN+WHawCYKFug==",
+  "_integrity": "",
   "_location": "/laravel-file-manager",
   "_phantomChildren": {
     "follow-redirects": "1.14.1"
   },
   "_requested": {
-    "type": "tag",
-    "registry": true,
-    "raw": "laravel-file-manager",
+    "type": "git",
+    "raw": "laravel-file-manager@git+https://github.com/sunveloper/laravel-file-manager.git",
     "name": "laravel-file-manager",
     "escapedName": "laravel-file-manager",
-    "rawSpec": "",
-    "saveSpec": null,
-    "fetchSpec": "latest"
+    "rawSpec": "git+https://github.com/sunveloper/laravel-file-manager.git",
+    "saveSpec": "git+https://github.com/sunveloper/laravel-file-manager.git",
+    "fetchSpec": "https://github.com/sunveloper/laravel-file-manager.git",
+    "gitCommittish": null
   },
   "_requiredBy": [
-    "#USER",
     "/"
   ],
-  "_resolved": "https://registry.npmjs.org/laravel-file-manager/-/laravel-file-manager-2.5.4.tgz",
+  "_resolved": "git+https://github.com/sunveloper/laravel-file-manager.git#15cf584eddfeb9965dd83628c80c2a5e95f334b4",
   "_shasum": "eefb0e873aeda84459cb6659a915142d21e63f92",
-  "_spec": "laravel-file-manager",
-  "_where": "C:\\Users\\Sun\\1\\b2b\\admin",
+  "_spec": "laravel-file-manager@git+https://github.com/sunveloper/laravel-file-manager.git",
+  "_where": "C:\\Users\\igetw\\htdoc\\b2b\\admin",
   "author": {
     "name": "Aleksandr Manekin",
     "email": "alexusmai@gmail.com"

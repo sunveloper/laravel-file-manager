@@ -1,9 +1,10 @@
 <template>
-    <div class="fm-tree">
-        <div class="fm-tree-disk sticky-top">
-            <i class="far fa-hdd"/> {{ selectedDisk }}
+    <div class="fm-tree p-0 border-right overflow-auto" :class="{ 'is-expanded': isExpanded }" @click="Sidebar()"  v-click-outside="SidebarHide">
+        <div class="fm-tree-disk sticky-top px-3 pt-3 pb-2 bg-white l-0">
+            <i class="fas fa-hdd tx-18" />
+            <span class="tx-medium ml-2">{{ selectedDisk }}</span>
         </div>
-        <branch v-bind:parent-id="0"/>
+        <branch v-bind:parent-id="0" />
     </div>
 </template>
 
@@ -11,40 +12,31 @@
 import Branch from './Branch.vue';
 
 export default {
-  name: 'FolderTree',
-  components: {
-    branch: Branch,
-  },
-  computed: {
-    /**
-     * Selected Disk
-     * @returns {*}
-     */
-    selectedDisk() {
-      return this.$store.getters['fm/selectedDisk'];
+    name: 'FolderTree',
+    data() {
+      return {
+        isExpanded: false,
+      }
     },
-  },
+    components: {
+        branch: Branch,
+    },
+    computed: {
+        /**
+         * Selected Disk
+         * @returns {*}
+         */
+        selectedDisk() {
+            return this.$store.getters['fm/selectedDisk'];
+        },
+    },
+    methods: {
+      Sidebar() {
+        this.isExpanded = !this.isExpanded;
+      },
+      SidebarHide() {
+				this.isExpanded = false;
+			},
+    },
 };
 </script>
-
-<style lang="scss">
-    .fm-tree {
-        overflow: auto;
-        border-right: 1px solid #6d757d;
-
-        & > .fm-folders-tree {
-            padding-left: 0.2rem;
-        }
-
-        .fm-tree-disk {
-            padding: 0.2rem 0.3rem;
-            margin-bottom: 0.3rem;
-            background-color: white;
-        }
-
-        .fm-tree-disk > i {
-            padding-left: 0.2rem;
-            padding-right: 0.5rem;
-        }
-    }
-</style>

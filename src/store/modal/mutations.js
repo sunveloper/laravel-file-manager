@@ -8,6 +8,7 @@ export default {
   setModalState(state, { show, modalName }) {
     state.showModal = show;
     state.modalName = modalName;
+    document.querySelector('body').classList.add('modal-open');
   },
 
   /**
@@ -17,6 +18,7 @@ export default {
   clearModal(state) {
     state.showModal = false;
     state.modalName = null;
+    document.querySelector('body').classList.remove('modal-open');
   },
 
   /**

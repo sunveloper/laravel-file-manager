@@ -1,14 +1,14 @@
 <template>
     <div class="modal-content fm-modal-folder">
-        <div class="modal-header">
-            <h5 class="modal-title">{{ lang.modal.newFolder.title }}</h5>
-            <button type="button" class="close" aria-label="Close" v-on:click="hideModal">
+        <div class="modal-header border-bottom-0 pb-0">
+            <h5 class="modal-title main-content-label">{{ lang.modal.newFolder.title }}</h5>
+            <!-- <button type="button" class="close" aria-label="Close" v-on:click="hideModal">
                 <span aria-hidden="true">&times;</span>
-            </button>
+            </button> -->
         </div>
         <div class="modal-body">
-            <div class="form-group">
-                <label for="fm-folder-name">{{ lang.modal.newFolder.fieldName }}</label>
+            <div class="form-group mb-0">
+                <label for="fm-folder-name" class="form-label tx-gray-600 mb-2 tx-medium">{{ lang.modal.newFolder.fieldName }}</label>
                 <input type="text" class="form-control" id="fm-folder-name"
                        v-focus
                        v-bind:class="{'is-invalid': directoryExist}"
@@ -20,11 +20,11 @@
             </div>
         </div>
         <div class="modal-footer">
-            <button class="btn btn-info"
+            <button class="btn btn-outline-light flex-1 mr-1" v-on:click="hideModal">{{ lang.btn.cancel }}</button>
+            <button class="btn btn-primary flex-1 ml-1"
                     v-bind:disabled="!submitActive"
-                    v-on:click="addFolder">{{ lang.btn.submit }}
+                    v-on:click="addFolder">{{ lang.modal.newFolder.submit }}
             </button>
-            <button class="btn btn-light" v-on:click="hideModal">{{ lang.btn.cancel }}</button>
         </div>
     </div>
 </template>
