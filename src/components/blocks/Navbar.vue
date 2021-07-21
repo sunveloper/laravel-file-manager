@@ -3,6 +3,7 @@
 		<div class="fm-navbar_title border-bottom p-3 lh-1">
 			<i class="fas fa-folder tx-20" />
 			<span v-if="breadcrumb" class="tx-medium tx-16 pl-2">{{ breadcrumb.slice(-1)[0] }}</span>
+			<span v-else class="tx-medium tx-16 pl-2">{{ selectedDisk }}</span>
 		</div>
 		<div class="fm-navbar_tools_1 border-bottom p-3">
 			<div class="btn-group" role="group">

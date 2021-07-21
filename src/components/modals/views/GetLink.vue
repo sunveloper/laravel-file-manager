@@ -80,7 +80,7 @@ export default {
             .then((response) => {
                 if (response.data.result.status === 'success') {
                     this.url = response.data.url;
-                    console.log(this.url)					
+                    // console.log(this.url)					
                 }
             });			
     },

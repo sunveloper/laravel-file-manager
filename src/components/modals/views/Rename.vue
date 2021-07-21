@@ -9,15 +9,21 @@
         <div class="modal-body">
             <div class="form-group mb-0">
                 <label for="fm-input-rename" class="form-label tx-gray-600 mb-2 tx-medium">{{ lang.modal.rename.fieldName }}</label>
-                <input type="text" class="form-control" id="fm-input-rename"
+                <div>
+                    <div v-if="!allDirectories || !allFiles">
+                      <span class="spinner-border spinner-border-sm tx-gray-600" role="status" aria-hidden="true"></span>
+                    </div>
+                    <input type="text" class="form-control" id="fm-input-rename"
                        v-focus
                        v-bind:class="{'is-invalid': checkName}"
                        v-model="name"
-                       v-on:keyup="validateName">
-                <div class="invalid-feedback" v-show="checkName">
-                    {{ lang.modal.rename.fieldFeedback }}
-                    {{ directoryExist ? ` - ${lang.modal.rename.directoryExist}` : ''}}
-                    {{ fileExist ? ` - ${lang.modal.rename.fileExist}` : ''}}
+                       v-on:keyup="validateName"
+                       v-else />
+                    <div class="invalid-feedback" v-show="checkName">
+                        {{ lang.modal.rename.fieldFeedback }}
+                        {{ directoryExist ? ` - ${lang.modal.rename.directoryExist}` : ''}}
+                        {{ fileExist ? ` - ${lang.modal.rename.fileExist}` : ''}}
+                    </div>
                 </div>
             </div>
         </div>
@@ -43,7 +49,21 @@ export default {
       name: '',
       directoryExist: false,
       fileExist: false,
+
+      // all name in directory
+      allDirectories: null,
+      allFiles: null,
     };
+  },
+  mounted() {
+    // initiate item name
+    this.name = this.selectedItem.basename;
+    
+    axios.get("https://b2b-core-develop.ecslab.dev/api/admin/storage/all")
+    .then((response) => {
+      this.allDirectories = response.data.data.directories;
+      this.allFiles = response.data.data.files;
+    }) 
   },
   computed: {
     /**
@@ -70,10 +90,6 @@ export default {
       return this.checkName || this.name === this.selectedItem.basename;
     },
   },
-  mounted() {
-    // initiate item name
-    this.name = this.selectedItem.basename;
-  },
   methods: {
     /**
      * Validate item name
@@ -83,10 +99,13 @@ export default {
         // if item - folder
         if (this.selectedItem.type === 'dir') {
           // check folder name matches
-          this.directoryExist = this.$store.getters[`fm/${this.activeManager}/directoryExist`](this.name);
+          // this.directoryExist = this.$store.getters[`fm/${this.activeManager}/directoryExist`](this.name);
+          this.directoryExist = this.allDirectories.some((basename) => basename === this.name);
+
         } else {
           // check file name matches
-          this.fileExist = this.$store.getters[`fm/${this.activeManager}/fileExist`](this.name);
+          // this.fileExist = this.$store.getters[`fm/${this.activeManager}/fileExist`](this.name);
+          this.fileExist = this.allFiles.some((basename) => basename === this.name);
         }
       }
     },

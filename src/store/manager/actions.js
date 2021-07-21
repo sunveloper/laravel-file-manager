@@ -1,4 +1,5 @@
 /* eslint-disable object-curly-newline */
+import axios from 'laravel-file-manager/src/http/axios';
 import GET from '../../http/get';
 
 export default {

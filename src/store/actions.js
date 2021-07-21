@@ -177,17 +177,20 @@ export default {
      * @returns {*|PromiseLike<T | never>|Promise<T | never>}
      */
     createDirectory({ getters, dispatch }, name) {
+        const dataForCreate={
+            disk: getters.selectedDisk,
+            name,
+        };
         // directory for new folder
-        const selectedDirectory = getters.selectedDirectory;
+        // const selectedDirectory = getters.selectedDirectory;
+        if(getters.selectedDirectory) dataForCreate.path=getters.selectedDirectory;
 
-        // console.log(name)
+        // const selectedDisk = getters.selectedDisk;
+        // let selectPath = null;
+        // selectedDirectory == null ? selectPath = selectedDisk : selectPath = selectedDirectory
         
         // create new directory, server side
-        return POST.createDirectory({
-            disk: getters.selectedDisk,
-            path: selectedDirectory,
-            name,
-        }).then((response) => {
+        return POST.createDirectory(dataForCreate).then((response) => {
             // update file list
             /* dispatch('updateContent', {
                 response,
@@ -434,6 +437,9 @@ export default {
                 dispatch('refreshManagers'),
             ]));
         }
+        
+        this.$store.state.fm.left.checkAll = false
+        
         // refresh manager/s
         return dispatch('refreshManagers');
     },

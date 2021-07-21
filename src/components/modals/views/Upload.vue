@@ -8,10 +8,15 @@
         </div>
         <div class="modal-body">
             <div class="fm-btn-wrapper mb-3" v-show="!progressBar">
+              <div v-if="!allFiles">
+                      <span class="spinner-border spinner-border-sm tx-gray-600" role="status" aria-hidden="true"></span>
+              </div>
+              <div v-else>
                 <button type="button" class="btn btn-secondary btn-block tx-uppercase">
                     {{ lang.btn.uploadSelect }}
                 </button>
                 <input type="file" multiple name="myfile" v-on:change="selectFiles($event)">
+              </div>
             </div>
             <div class="fm-upload-list" v-if="countFiles">
               <!-- file upload list -->
@@ -110,10 +115,14 @@ export default {
       // overwrite if exists
       overwrite: 0,
       fileExist: false,
-      // x: null,
+
+      // all name in directory
+      allFiles: null,
     };
   },
   mounted() {
+    axios.get("https://b2b-core-develop.ecslab.dev/api/admin/storage/all")
+    .then(response => this.allFiles = response.data.data.files);
   },
   computed: {
 
@@ -135,7 +144,11 @@ export default {
 
     disabledFileExist() {
       for (let i = 0; i < this.newFiles.length; i += 1) {
-        if(this.fileExist = this.$store.getters[`fm/${this.activeManager}/fileExist`](this.newFiles[i].name) == true) {
+        // if(this.fileExist = this.$store.getters[`fm/${this.activeManager}/fileExist`](this.newFiles[i].name) == true) {
+        //   return true;
+        // }
+
+        if(this.fileExist = this.allFiles.some((basename) => basename === this.newFiles[i].name) == true) {
           return true;
         }
       }
@@ -176,7 +189,7 @@ export default {
 
     checkFileExist() {
       for (let i = 0; i < this.newFiles.length; i += 1) {
-        this.fileExist = this.$store.getters[`fm/${this.activeManager}/fileExist`](this.newFiles[i].name) ? this.newFiles[i].check = true : this.newFiles[i].check = false
+        this.fileExist = this.allFiles.some((basename) => basename === this.newFiles[i].name) ? this.newFiles[i].check = true : this.newFiles[i].check = false
       }
     },
 

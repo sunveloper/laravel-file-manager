@@ -9,13 +9,19 @@
         <div class="modal-body">
             <div class="form-group mb-0">
                 <label for="fm-folder-name" class="form-label tx-gray-600 mb-2 tx-medium">{{ lang.modal.newFolder.fieldName }}</label>
-                <input type="text" class="form-control" id="fm-folder-name"
-                       v-focus
-                       v-bind:class="{'is-invalid': directoryExist}"
-                       v-model="directoryName"
-                       v-on:keyup="validateDirName">
-                <div class="invalid-feedback" v-show="directoryExist">
+                <div>
+                  <div v-if="!allDirectories">
+                    <span class="spinner-border spinner-border-sm tx-gray-600" role="status" aria-hidden="true"></span>
+                  </div>
+                  <input type="text" class="form-control" id="fm-folder-name"
+                        v-focus
+                        v-bind:class="{'is-invalid': directoryExist}"
+                        v-model="directoryName"
+                        v-on:keyup="validateDirName"
+                        v-else />
+                  <div class="invalid-feedback" v-show="directoryExist">
                     {{ lang.modal.newFolder.fieldFeedback }}
+                  </div>
                 </div>
             </div>
         </div>
@@ -41,9 +47,16 @@ export default {
       // name for new directory
       directoryName: '',
 
+      // all name in directory
+      allDirectories: null,
+
       // directory exist
       directoryExist: false,
     };
+  },
+  mounted() {
+    axios.get("https://b2b-core-develop.ecslab.dev/api/admin/storage/all")
+    .then(response => this.allDirectories = response.data.data.directories);
   },
   computed: {
     /**
@@ -60,7 +73,8 @@ export default {
      */
     validateDirName() {
       if (this.directoryName) {
-        this.directoryExist = this.$store.getters[`fm/${this.activeManager}/directoryExist`](this.directoryName);
+        // this.directoryExist = this.$store.getters[`fm/${this.activeManager}/directoryExist`](this.directoryName);
+        this.directoryExist = this.allDirectories.some((basename) => basename === this.directoryName)
       } else {
         this.directoryExist = false;
       }
@@ -70,11 +84,12 @@ export default {
      * Create new directory
      */
     addFolder() {
-      this.$store.dispatch('fm/createDirectory', this.directoryName).then((response) => {
+      this.$store.dispatch("fm/createDirectory", this.directoryName).then((response) => {
         // if new directory created successfully
         if (response.data.result.status === 'success') {
           // close modal window
           this.hideModal();
+          // console.log('successs')
         }
       });
     },

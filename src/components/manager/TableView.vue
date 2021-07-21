@@ -71,7 +71,7 @@
 					<td class="text-center">
 						<input type="checkbox" v-on:click=" selectItem('directories', directory.path, $event)" :checked="getCheckAll && checkSelect('directories', directory.path)" v-bind:disabled="getCheckAll" ref="itemCheckbox" />
 					</td>
-					<td class="fm-content-item unselectable" v-bind:class="acl && directory.acl === 0 ? 'text-hidden' : ''">
+					<td class="fm-content-item unselectable" v-bind:class="acl && directory.acl === 0 ? 'text-hidden' : ''" v-on:dblclick.stop="selectDirectory(directory.path)">
 						<i class="fas fa-folder" />
 						<span class="pl-1">{{ directory.basename }}</span>
 					</td>
@@ -105,7 +105,8 @@
 					</td>
 					<td class="fm-content-item unselectable" v-bind:class="acl && file.acl === 0 ? 'text-hidden' : ''">
 						<i class="fas" v-bind:class="extensionToIcon(file.extension)" />
-						<span class="pl-1">{{ file.filename ? file.filename : file.basename }}</span>
+						<!-- <span class="pl-1">{{ file.filename ? file.filename : file.basename }}</span> -->
+						<span class="pl-1">{{ setName[index] }}</span>
 					</td>
 					<td class="tx-uppercase">
 						{{ file.extension }}
@@ -216,6 +217,12 @@
 				this.$store.state.fm[this.activeManager].selected.directories = []
 				this.$store.state.fm[this.activeManager].selected.files = []
 				return this.allSelected(this.getCheckAll);
+			},
+
+			setName() {
+				return this.filesAll.map(function(item) {
+					return item.basename.split(".")[0]
+				});
 			},
 		},
 		methods: {

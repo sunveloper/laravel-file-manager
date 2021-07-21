@@ -33,7 +33,7 @@
 						<i v-else class="fm-grid-item-preview_wrap fas" v-bind:class="extensionToIcon(file.extension)" />
 					</div>
 					<div class="fm-grid-item-caption p-2">
-						<p class="title tx-medium text-break m-0">{{ `${file.filename}.${file.extension}` }}</p>
+						<p class="title tx-medium text-break m-0">{{ file.basename }}</p>
 						<p class="subtitle tx-gray-500 m-0">{{ bytesToHuman(file.size) }}</p>
 					</div>
 				</div>

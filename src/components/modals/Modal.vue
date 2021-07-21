@@ -1,6 +1,7 @@
 <template>
     <transition name="fm-modal">
-        <div class="fm-modal" ref="fmModal" v-on:click="hideModal">
+      <!-- v-on:click="hideModal" -->
+        <div class="fm-modal" ref="fmModal">
             <div class="modal-dialog modal-dialog-centered"
                  role="document"
                  v-bind:class="modalSize"
