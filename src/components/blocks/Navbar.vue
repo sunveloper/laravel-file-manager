@@ -21,11 +21,11 @@
                 </button>
             </div>
             <div class="btn-group" role="group">
-                <button v-if="settings.permissions.can_edit" type="button" class="btn btn-outline-primary btn-tool" v-on:click="showModal('NewFolder')" v-bind:title="lang.btn.folder">
+                <button v-if="permissions.can_edit" type="button" class="btn btn-outline-primary btn-tool" v-on:click="showModal('NewFolder')" v-bind:title="lang.btn.folder">
                     <i class="fas fa-folder-plus" />
                     <p>New Folder</p>
                 </button>
-                <template v-if="settings.permissions.can_edit">
+                <template v-if="permissions.can_edit">
                     <button type="button" class="btn btn-outline-primary btn-tool" disabled v-if="uploading" v-bind:title="lang.btn.upload">
                         <i class="fas fa-file-upload" />
                         <p>Upload</p>
@@ -39,7 +39,7 @@
                     <i class="fas fa-file-download" />
                     <p>Download</p>
                 </button>
-                <button v-if="settings.permissions.can_edit" type="button" class="btn btn-outline-primary btn-tool" v-bind:disabled="!isAnyItemSelected || selectedCount > 1" v-on:click="showModal('Rename')" v-bind:title="lang.btn.rename">
+                <button v-if="permissions.can_edit" type="button" class="btn btn-outline-primary btn-tool" v-bind:disabled="!isAnyItemSelected || selectedCount > 1" v-on:click="showModal('Rename')" v-bind:title="lang.btn.rename">
                     <i class="fas fa-i-cursor" />
                     <p>Rename</p>
                 </button>
@@ -55,7 +55,7 @@
                     <p>Copy Link</p>
                 </button>
             </div>
-            <div class="btn-group" role="group" v-if="settings.permissions.can_delete">
+            <div class="btn-group" role="group" v-if="permissions.can_delete">
                 <button type="button" class="btn btn-outline-danger btn-tool" v-bind:disabled="!isAnyItemSelected" v-on:click="showModal('Delete')" v-bind:title="lang.btn.delete">
                     <i class="fas fa-trash-alt" />
                     <p>Delete</p>
@@ -153,11 +153,9 @@ import contextMenuRules from './mixins/contextMenuRules';
 import contextMenuActions from './mixins/contextMenuActions';
 export default {
     mixins: [translate, contextMenu, contextMenuRules, contextMenuActions],
-    /* props: {
+    props: {
         manager: { type: String, required: true },
-        settings,
-    }, */
-    props: ['manager', 'settings'],
+    },
     data() {
         return {
             selected_sortBy: 'By Name', // default sortBy
@@ -264,6 +262,9 @@ export default {
             } else {
                 return false;
             }
+        },
+        permissions() {
+            return this.$store.state.fm.settings.permissions;
         },
     },
     mounted() {
