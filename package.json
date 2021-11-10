@@ -20,10 +20,10 @@
   "_requiredBy": [
     "/"
   ],
-  "_resolved": "git+https://github.com/sunveloper/laravel-file-manager.git#15cf584eddfeb9965dd83628c80c2a5e95f334b4",
+  "_resolved": "git+https://github.com/sunveloper/laravel-file-manager.git#a48b18258c386e288a576e9f7094fab261b736ae",
   "_shasum": "eefb0e873aeda84459cb6659a915142d21e63f92",
   "_spec": "laravel-file-manager@git+https://github.com/sunveloper/laravel-file-manager.git",
-  "_where": "C:\\Users\\igetw\\htdoc\\b2b\\admin",
+  "_where": "C:\\Users\\Sun\\1\\b2b\\admin",
   "author": {
     "name": "Aleksandr Manekin",
     "email": "alexusmai@gmail.com"
