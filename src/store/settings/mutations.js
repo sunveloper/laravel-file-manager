@@ -28,6 +28,7 @@ export default {
         }
         state.permissions = data.permissions;
         state.core_endpoint = data.core_endpoint;
+        state.aws_url = data.aws_url;
     },
     /**
      * Initiate Axios baseUrl and headers
